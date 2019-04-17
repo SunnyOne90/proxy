@@ -9,7 +9,7 @@ public class GPIntermediary implements GPInvocationHandler {
     public Object getInstance(Object obj){
         this.object = obj;
         Class<?> clazz = obj.getClass();
-        return Proxy.newProxyInstance(clazz.getClassLoader(),clazz.getInterfaces(),this);
+        return GPProxy.newProxyInstance(new GPClassLoader(),clazz.getInterfaces(),this);
     }
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         System.out.println("房子给你找好了，是你想要的。");
