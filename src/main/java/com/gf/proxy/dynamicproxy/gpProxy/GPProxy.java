@@ -77,10 +77,13 @@ public class GPProxy {
                     paramValues.append(paramValue);
                     paramClasses.append(param.getName() + ".class");
                 }
-                paramsNames.substring(0,paramsNames.length()-1);
-                paramValues.substring(0,paramsNames.length()-1);
-                paramClasses.substring(0,paramsNames.length()-1);
-                sb.append("public "+method.getReturnType().getName() +"  "+method.getName()+"("+paramsNames.toString());
+                int i = method.getParameterTypes().length;
+                if( method.getParameterTypes().length != 0) {
+                    paramsNames.toString().substring(0, paramsNames.length() - 1);
+                    paramValues.toString().substring(0, paramsNames.length() - 1);
+                    paramClasses.toString().substring(0, paramsNames.length() - 1);
+                }
+                sb.append("public "+method.getReturnType().getName() +"  "+method.getName()+"("+paramsNames.toString()+")"+"{"+In);
                 sb.append("try{" + In);
                 sb.append("Method m = "+clazz.getName()+".class.getMethod(\""+ method.getName() + "\",new Class[]{" + paramClasses.toString() + "});" + In);
                 sb.append((hasReturnValue(method.getReturnType()) ? "return " : "") + getCaseCode("this.h.invoke(this,m,new Object[]{" + paramValues + "})",method.getReturnType()) + ";" + In);
@@ -92,7 +95,9 @@ public class GPProxy {
                 sb.append("}");
 
             }
+
         }
+        sb.append("}" + In);
         return sb.toString();
     }
 

@@ -11,6 +11,8 @@ public class GPIntermediary implements GPInvocationHandler {
         Class<?> clazz = obj.getClass();
         return GPProxy.newProxyInstance(new GPClassLoader(),clazz.getInterfaces(),this);
     }
+
+    @Override
     public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
         System.out.println("房子给你找好了，是你想要的。");
         Object object = method.invoke(this.object,args);

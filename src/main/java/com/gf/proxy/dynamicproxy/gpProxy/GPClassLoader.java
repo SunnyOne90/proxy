@@ -21,8 +21,8 @@ public class GPClassLoader extends ClassLoader{
     @Override
     protected Class<?> findClass(String s) throws ClassNotFoundException {
         //寻找classname
-       String className = GPClassLoader.class.getPackage().getName()+""+s;
-       if(className != null){
+       String className = GPClassLoader.class.getPackage().getName()+"."+s;
+       if(classPathFile != null){
            File classFile = new File(classPathFile,s.replace("\\.","/") + ".class");
            if(classFile.exists()){
                FileInputStream in = null;
